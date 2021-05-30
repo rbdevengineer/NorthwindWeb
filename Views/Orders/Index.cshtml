@@ -1,0 +1,330 @@
+﻿@model NorthwindWeb.ViewModels.OrdersViewModel
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Orders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var orderPagedList = Model.OrderPagedList;
+    var orderSearchModel = Model.OrderSearchModel;
+}
+
+<h2>Orders</h2>
+
+@using (Html.BeginForm())
+{
+    <section class="content">
+        <div class="container-fluid">
+            <div class="form-horizontal">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group row">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => orderSearchModel.CustomerCompanyName)
+                            </div>
+                            <div class="col-md-8">
+                                @Html.DropDownListFor(model => orderSearchModel.CustomerId, orderSearchModel.CustomerSelectList, "-- Select --", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => orderSearchModel.CustomerId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="form-group row">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => orderSearchModel.EmployeeLastName)
+                            </div>
+                            <div class="col-md-8">
+                                @Html.DropDownListFor(model => orderSearchModel.EmployeeId, orderSearchModel.EmployeeSelectList, "-- Select --", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => orderSearchModel.EmployeeId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group row">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => orderSearchModel.ShipperCompanyName)
+                            </div>
+                            <div class="col-md-8">
+                                @Html.DropDownListFor(model => orderSearchModel.ShipperId, orderSearchModel.ShipperSelectList, "-- Select --", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => orderSearchModel.ShipperId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="form-group row">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => orderSearchModel.OrderDate)
+                            </div>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => orderSearchModel.OrderDate, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => orderSearchModel.OrderDate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group row">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => orderSearchModel.RequiredDate)
+                            </div>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => orderSearchModel.RequiredDate, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => orderSearchModel.RequiredDate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="form-group row">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => orderSearchModel.ShippedDate)
+                            </div>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => orderSearchModel.ShippedDate, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => orderSearchModel.ShippedDate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group row">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => orderSearchModel.Freight)
+                            </div>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => orderSearchModel.Freight, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => orderSearchModel.Freight, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="form-group row">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => orderSearchModel.ShipName)
+                            </div>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => orderSearchModel.ShipName, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => orderSearchModel.ShipName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group row">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => orderSearchModel.ShipAddress)
+                            </div>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => orderSearchModel.ShipAddress, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => orderSearchModel.ShipAddress, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="form-group row">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => orderSearchModel.ShipCity)
+                            </div>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => orderSearchModel.ShipCity, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => orderSearchModel.ShipCity, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group row">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => orderSearchModel.ShipRegion)
+                            </div>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => orderSearchModel.ShipRegion, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => orderSearchModel.ShipRegion, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="form-group row">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => orderSearchModel.ShipPostalCode)
+                            </div>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => orderSearchModel.ShipPostalCode, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => orderSearchModel.ShipPostalCode, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group row">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => orderSearchModel.ShipCountry)
+                            </div>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => orderSearchModel.ShipCountry, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => orderSearchModel.ShipCountry, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="form-group row">
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-8">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="text-center col-md-12">
+                        <input class="btn btn-primary btn-search" type="submit" value="Search" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+<br />
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => orderPagedList.FirstOrDefault().Customer.CompanyName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => orderPagedList.FirstOrDefault().Employee.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => orderPagedList.FirstOrDefault().Shipper.CompanyName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => orderPagedList.FirstOrDefault().OrderDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => orderPagedList.FirstOrDefault().RequiredDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => orderPagedList.FirstOrDefault().ShippedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => orderPagedList.FirstOrDefault().Freight)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => orderPagedList.FirstOrDefault().ShipName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => orderPagedList.FirstOrDefault().ShipAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => orderPagedList.FirstOrDefault().ShipCity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => orderPagedList.FirstOrDefault().ShipRegion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => orderPagedList.FirstOrDefault().ShipPostalCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => orderPagedList.FirstOrDefault().ShipCountry)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in orderPagedList)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.CompanyName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employee.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Shipper.CompanyName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RequiredDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShippedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Freight)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipCity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipRegion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipPostalCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipCountry)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.OrderID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.OrderID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.OrderID })
+            </td>
+        </tr>
+    }
+
+</table>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<br />
+                Page @(orderPagedList.PageCount < orderPagedList.PageNumber ? 0 : orderPagedList.PageNumber) of @orderPagedList.PageCount
+
+                @Html.PagedListPager(orderPagedList, page => Url.Action("Index",
+                    new
+                         {
+                             page,
+                        orderSearchModel.CustomerId,
+                        orderSearchModel.EmployeeId,
+                        orderSearchModel.ShipperId,
+                        orderSearchModel.OrderDate,
+                        orderSearchModel.RequiredDate,
+                        orderSearchModel.ShippedDate,
+                        orderSearchModel.Freight,
+                        orderSearchModel.ShipName,
+                        orderSearchModel.ShipAddress,
+                        orderSearchModel.ShipCity,
+                        orderSearchModel.ShipRegion,
+                        orderSearchModel.ShipPostalCode,
+                        orderSearchModel.ShipCountry
+                    }))
+
+
+                @section scripts {
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#orderSearchModel_RequiredDate').datetimepicker({
+                                format: 'MM/DD/YYYY'
+                            });
+                            $('#orderSearchModel_OrderDate').datetimepicker({
+                                format: 'MM/DD/YYYY'
+                            });
+                            $('#orderSearchModel_ShippedDate').datetimepicker({
+                                format: 'MM/DD/YYYY'
+                            });
+                        });
+                    </script>
+                }
