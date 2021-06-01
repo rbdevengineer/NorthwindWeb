@@ -7,17 +7,29 @@ namespace NorthwindWeb.DAL
     {
         private NorthwindContext context = new NorthwindContext();
         private GenericRepository<Order> orderRepository;
+        private GenericRepository<Customer> customerRepository;
 
         public GenericRepository<Order> OrderRepository
         {
             get
             {
-
                 if (this.orderRepository == null)
                 {
                     this.orderRepository = new GenericRepository<Order>(context);
                 }
                 return orderRepository;
+            }
+        }
+
+        public GenericRepository<Customer> CustomerRepository
+        {
+            get
+            {
+                if (this.customerRepository == null)
+                {
+                    this.customerRepository = new GenericRepository<Customer>(context);
+                }
+                return customerRepository;
             }
         }
 
